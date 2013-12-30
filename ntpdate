@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sync time. Place sym link in /etc/cron.hourly/.
+ntpdate ntp.ubuntu.com
