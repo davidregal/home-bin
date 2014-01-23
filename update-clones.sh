@@ -2,21 +2,22 @@
 shopt -s expand_aliases
 # TODO: Add skip for production sides (e.g. prefixed with 'prod')
 
+leave=0 # 0 = don't exit, 1 = exit
 if [ -d "/var/www/wp" ]; then
 	echo "Using /var/www"
-	dirWPRoot="/var/www/wp/"
+	dirWPRoot="/var/www/wp"
 elif [ -d "~/www/wp" ]; then
 	echo "Using ~/www"
-	dirWPRoot="~/www/wp/"
+	dirWPRoot="~/www/wp"
 else
 	echo "Not found. Exiting"
 	leave=1
 fi
 
-if [ $leave -eq 0 ]; then
+if [ "$leave" -eq 0 ]; then
 	echo "Starting update"
 	date
-	for dirWP in "${dirWPRoot}/*"; do
+	for dirWP in "${dirWPRoot}"/*; do
 
 		if [ -d "$dirWP" ]; then
 			echo "Processing ${dirWP} ..."
