@@ -1,16 +1,32 @@
 # First update wp/dev/. Test it. Then run this script.
+shopt -s expand_aliases
+# TODO: Add skip for production sides (e.g. prefixed with 'prod')
 
-echo "Starting update"
-date
-for dirWP in /var/www/wp/*; do
+if [ -d "/var/www/wp" ]; then
+	echo "Using /var/www"
+	dirWPRoot="/var/www/wp/"
+elif [ -d "~/www/wp" ]; then
+	echo "Using ~/www"
+	dirWPRoot="~/www/wp/"
+else
+	echo "Not found. Exiting"
+	leave=1
+fi
 
-    if [ -d "$dirWP" ]; then
-        echo "Processing ${dirWP} ..."
-        cd "${dirWP}"
-        git pull
-    fi
-done
+if [ $leave -eq 0 ]; then
+	echo "Starting update"
+	date
+	for dirWP in "${dirWPRoot}/*"; do
 
-echo "Update complete"
-date
+		if [ -d "$dirWP" ]; then
+			echo "Processing ${dirWP} ..."
+			cd "${dirWP}"
+			git pull
+		fi
+	done
+
+	echo "Update complete"
+	date
+fi
+
 echo "Exiting"
