@@ -15,7 +15,7 @@ else
   echo "Make sure dir ~/tmp/wp/dev is empty."
   result=$(ls ~/tmp/wp/dev)
   echo "Contents of dir: ${result}"
-  pause "Press any key to continue..."
+  pause "Press [Enter] key to continue..."
 fi
 cd ~/tmp/wp/ && \
 unzip git-wp-dev.zip -d dev && \
