@@ -6,17 +6,16 @@ function pause(){
    read -p "$*"
 }
 
-cd ~/Documents/wc/wp/dev && \
 git archive --format zip -0 --worktree-attributes -o ~/tmp/wp/git-wp-dev.zip HEAD
-if [ ! -d ~/tmp/wp/dev ];
+if [ ! -d ~/tmp/wp/dev-release ];
 then
-  mkdir -p ~/tmp/wp/dev
+  mkdir -p ~/tmp/wp/dev-release
 else
-  echo "Make sure dir ~/tmp/wp/dev is empty."
-  result=$(ls ~/tmp/wp/dev)
+  echo "Make sure dir ~/tmp/wp/dev-release is empty."
+  result=$(ls ~/tmp/wp/dev-release)
   echo "Contents of dir: ${result}"
   pause "Press [Enter] key to continue..."
 fi
 cd ~/tmp/wp/ && \
-unzip git-wp-dev.zip -d dev && \
-echo "Unzipped to ~/tmp/wp/dev."
+unzip git-wp-dev.zip -d ~/tmp/wp/dev-release && \
+echo "Unzipped to ~/tmp/wp/dev-release."
