@@ -1,9 +1,9 @@
-#!/bin/bash -xv
+#!/bin/bash
 # Created by: David Regal
 # Modified by: David Regal
 
-
 arg0=$(basename $0)
+usage_printed=false # To prevent printing usage more than once
 
 expand_tilde()
 {
@@ -23,9 +23,12 @@ function pause(){
 }
 
 function usage () {
-	arg0=$(basename $0)
-	echo "Usage: $arg0 -r destination-root -h server-name"
-	echo "Usage: $arg0 [-h]"
+	if ! $usage_printed; then
+		arg0=$(basename $0)
+		echo "Usage: $arg0 -r destination-root -h server-name"
+		echo "Usage: $arg0 [-h]"
+		usage_printed=true
+	fi
 }
 
 function help () {
@@ -33,7 +36,7 @@ function help () {
 	echo " Script '$arg0' makes a backup of the server configuration for PHP, MySQL and Apache. A good time to run this script is before upgrading Linux modules or Linux version."
 	echo ""
 	echo "Valid options:"
-	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo."
+	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo. No trailing slashes. E.g. ~/etc"
 	echo '  -s server-name       : Name of the server being backed up. You can use probably $hostname. Dir <server-name> will be created in <destination-root>'
 	echo ""
 }
@@ -47,6 +50,12 @@ do
 		*) usage;;
 	esac
 done
+
+if [[ "$dst_root" == "" || "$servername" == "" ]]; then
+	echo "ERROR: Options -r and -s are required and require arguments." >&2
+	usage
+	exit 1
+fi
 
 # Setup
 #servername="wingsdev"
