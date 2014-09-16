@@ -10,7 +10,9 @@ function usage () {
 	if ! $usage_printed; then
 		arg0=$(basename $0)
 		echo "Usage: $arg0 -r destination-root -h server-name"
-		echo "Usage: $arg0 [-h]"
+		echo "       $arg0 [-d] [-v]"
+		echo "       $arg0 [-h]"
+		echo "       $arg0 [-V]"
 		usage_printed=true
 	fi
 }
@@ -20,12 +22,16 @@ function help () {
 	echo " Script '$arg0' makes a backup of the server configuration for PHP, MySQL and Apache. A good time to run this script is before upgrading Linux modules or Linux version."
 	echo ""
 	echo "Valid options:"
+	echo "  -d                 : debug output."
 	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo. No trailing slashes. E.g. ~/etc"
 	echo '  -s server-name       : Name of the server being backed up. You can use probably $hostname. Dir <server-name> will be created in <destination-root>'
+	echo "  -V                 : version info."
+	echo "  -v                 : verbose output."
 	echo ""
 	echo "Examples:"
 	echo "  $arg0 -r ~/etc -h apollo-web"
 	echo '  $arg0 -r ~/etc -h "$(hostname)"'
+	echo ""
 }
 
 function pause(){
@@ -44,10 +50,15 @@ expand_tilde()
 	esac
 }
 
-while getopts "hr:s:" flag
+verbose=
+debug=
+while getopts "hvVdb:u:p:" flag
 do
 	case "$flag" in
 		h) help; exit 0;;
+		V) echo "$arg0: version $Id:$"; exit 0;;
+		v) verbose=1;;
+		d) debug=1;;
 		r) dst_root="$(expand_tilde $OPTARG)";;
 		s) servername="$OPTARG";;
 		*) usage;;
@@ -61,8 +72,6 @@ if [[ "$dst_root" == "" || "$servername" == "" ]]; then
 fi
 
 # Setup
-#servername="wingsdev"
-#dst_root="$HOME/etc" # No trailing slash
 dst="${dst_root}/${servername}"
 src_root="/etc"
 
