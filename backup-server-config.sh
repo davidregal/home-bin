@@ -1,18 +1,56 @@
-#!/bin/bash
-# Purpose: Backup server configuration for PHP, MySQL and Apache
-# When to use: Run this before upgrading Linux modules or Linux version.
-# 
+#!/bin/bash -xv
 # Created by: David Regal
 # Modified by: David Regal
 
-# Functions
-function pause(){
-   read -p "$*"
+
+arg0=$(basename $0)
+
+expand_tilde()
+{
+	case "$1" in
+	(\~)        echo "$HOME";;
+	(\~/*)      echo "$HOME/${1#\~/}";;
+	(\~[^/]*/*) local user=$(eval echo ${1%%/*})
+				echo "$user/${1#*/}";;
+	(\~[^/]*)   eval echo ${1};;
+	(*)         echo "$1";;
+	esac
 }
 
+# Functions
+function pause(){
+	read -p "$*"
+}
+
+function usage () {
+	arg0=$(basename $0)
+	echo "Usage: $arg0 -r destination-root -h server-name"
+	echo "Usage: $arg0 [-h]"
+}
+
+function help () {
+	usage
+	echo " Script '$arg0' makes a backup of the server configuration for PHP, MySQL and Apache. A good time to run this script is before upgrading Linux modules or Linux version."
+	echo ""
+	echo "Valid options:"
+	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo."
+	echo '  -s server-name       : Name of the server being backed up. You can use probably $hostname. Dir <server-name> will be created in <destination-root>'
+	echo ""
+}
+
+while getopts "hr:s:" flag
+do
+	case "$flag" in
+		h) help; exit 0;;
+		r) dst_root="$(expand_tilde $OPTARG)";;
+		s) servername="$OPTARG";;
+		*) usage;;
+	esac
+done
+
 # Setup
-servername="wingsdev"
-dst_root="$HOME/etc" # No trailing slash
+#servername="wingsdev"
+#dst_root="$HOME/etc" # No trailing slash
 dst="${dst_root}/${servername}"
 src_root="/etc"
 
@@ -34,7 +72,7 @@ cp -rpf "${src_root}/mysql" "${dst}/"
 cd "${dst}"
 echo "git status:"
 git status
-pause "Check git status. If it looks good, then press return to add, commit and push to github..."
+pause "Check git status. If want to add, commit and push, then press return. Otherwise press [Ctrl]+c"
 git add -A . && git commit -a -m "Backup server config for ${servername}."
 
 # Push to github

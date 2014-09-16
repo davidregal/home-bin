@@ -4,7 +4,7 @@
 
 arg0=$(basename $0)
 
-usage () {
+function usage () {
 	arg0=$(basename $0)
 	echo "usage: $arg0 [-b branch] [-u upstream-branch] [-p parent-of-wc] [-v]"
 	echo "usage: $arg0  [-d] [-v]"
@@ -12,7 +12,7 @@ usage () {
 	echo "       $arg0 [-V]"
 }
 
-help () {
+function help () {
 	usage
 	echo "Description:"
 	echo "  Syncs branch with upstream then reintegrates branch ino upstream."
