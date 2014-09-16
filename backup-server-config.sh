@@ -17,7 +17,7 @@ function usage () {
 
 function help () {
 	usage
-	echo " Script '$arg0' makes a backup of the server configuration for PHP, MySQL and Apache. A good time to run this script is before upgrading Linux modules or Linux version."
+	echo " Script '$arg0' makes a backup of the server configuration for PHP, MySQL and Apache. A good time to run this script is before upgrading Linux modules or Linux version. Do not run as root or sudo because it could copied private files with sensitive info (password)."
 	echo ""
 	echo "Valid options:"
 	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo. No trailing slashes. E.g. ~/etc"
