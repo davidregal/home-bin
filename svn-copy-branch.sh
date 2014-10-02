@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 # $Id:$
 # $URL:$
 
@@ -46,6 +46,6 @@ do
 	esac
 done
 
-cd "${path}"
 svn copy svn+ssh://dregal@sshwingsnw/var/svn/wings/wings/branches/beta svn+ssh://dregal@sshwingsnw/var/svn/wings/wings/branches/david -m "Recreate david from beta@HEAD."
+cd "${path}"
 svn up "${branch}" "${upstream}"
