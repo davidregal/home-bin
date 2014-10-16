@@ -23,7 +23,8 @@ if [ "$leave" -eq 0 ]; then
 		if [ -d "$dirWP" ]; then
 			echo "Processing ${dirWP} ..."
 			cd "${dirWP}"
-			git pull
+			# Using --ff-only helps avoid unnecessary merges.
+			git pull --ff-only
 		fi
 	done
 
