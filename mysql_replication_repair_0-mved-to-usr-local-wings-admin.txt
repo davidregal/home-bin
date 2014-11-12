@@ -5,25 +5,41 @@
 # Created: 2013-05-05
 # By: David Regal
 # Credits: http://www.howtoforge.com/how-to-repair-mysql-replication
+read -s -p "MySQL root password: " password_mysql;
+echo ;
 done=0;
 while [ $done -eq 0 ];
 do
 	# get status
-	done=$( mysql -u root -p -Be 'SHOW SLAVE STATUS;' | tail -1 | cut -f12 | grep Yes | wc -l )
+	done=$( mysql -u root -p${password_mysql} -Be 'SHOW SLAVE STATUS;' | tail -1 | cut -f12 | grep Yes | wc -l )
 	if [ $done -eq 0 ];
-		then
-		echo "Advancing position past [$(mysql -u root -p -Be 'SHOW SLAVE STATUS;' | tail -1 | cut -f20)]... ";
-		read -p "Are you sure? " -n 1 -r;
-		if [[ $REPLY =~ ^[Yy]$ ]];
+	then
+		error="$(mysql -u root -p${password_mysql} -Be 'SHOW SLAVE STATUS;' | tail -1 | cut -f20)";
+		echo "$error" | grep -q 'wings_demo';
+		no_match=$?;
+		if [ ${no_match} -eq 0 ];
 			then
+			echo "Table wings_demo: Yes";
+			echo "Advancing position past ${error}... ";
+			read -p "Are you sure? " -n 1 -r;
 			echo ;
-			mysql -u root -p -Be "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; START SLAVE;";
-			sleep 1;
+			if [[ $REPLY =~ ^[Yy]$ ]];
+				then
+				mysql -u root -p${password_mysql} -Be "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; START SLAVE;";
+				sleep 1;
+			else
+				done=1;
+				echo ;
+				echo Exiting;
+			fi;
 		else
+			echo "Table wings_demo: No";
 			done=1;
 			echo ;
 			echo Exiting;
-		fi;
+		fi
 	fi
 done 
+
+password_mysql="";
 
