@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Description: Created to more quickly create a release. A release has a version number in it.
 # Originally created and tested on Mac OS X 10.9.3.
 # init
