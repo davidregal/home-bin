@@ -27,7 +27,7 @@ do
 			echo "Table wings_demo: No";
 		fi
 		echo "Advancing position past ${error}... ";
-		read -p "Are you sure? " -n 1 -r;
+		read -p "Are you sure? " -n 2 -r;
 		if [[ $REPLY =~ ^[Yy]$ ]];
 		then
 			mysql -u root -p${password_mysql} -Be "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; START SLAVE;";
@@ -37,14 +37,17 @@ do
 			echo Exiting;
 		fi
 	else
-		echo "No errors found within ${sleep_seconds} seconds.";
+		seconds_behind_info="$(mysql -u root -p${password_mysql} -Be 'SHOW SLAVE STATUS \G' | grep 'Seconds_Behind_Master')";
+		echo "INFO:  Slave is ${seconds_behind_info}";
+		echo "No errors found yet but if slave is way behind master, then probably a few more errors will pop-up.";
 		#echo "Sleep a little more? ";
 		#read -p "Are you sure? " -n 1 -r;
-		read -p "Sleep for ${sleep_seconds_long} seconds? " -n 1 -r;
+		read -p "Sleep for $((sleep_seconds_long/60)) minutes? " -n 2 -r;
 		if [[ $REPLY =~ ^[Yy]$ ]];
 		then
 			done=0;
 			sleep ${sleep_seconds_long};
+			sleep_seconds_long=$((sleep_seconds_long*2))
 		fi
 	fi
 done
