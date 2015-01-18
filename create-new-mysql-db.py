@@ -85,7 +85,8 @@ if __name__ == '__main__':
     database_password = input("Database user password: ")
     print ("Checking name of database.", database_password)
     
-    command = """CREATE DATABASE {database_name}
+    command = """
+    CREATE DATABASE {database_name};
     CREATE USER {database_user}@localhost;
     SET PASSWORD FOR {database_user}@localhost=PASSWORD('{database_password}');
     GRANT ALL PRIVILEGES ON {database_name}.* TO {database_user}@localhost;
