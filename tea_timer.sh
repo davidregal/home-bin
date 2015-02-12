@@ -7,6 +7,10 @@ function set_tab_title {
   printf "\e]1;$1\a"
 }
 
+function set_window_title {
+  printf "\e]2;$1\a"
+}
+
 echo -n "How many minutes would you like the timer to run? "
 read limit
 echo
@@ -19,7 +23,8 @@ beeps_before_bailing=60
 s_between_beeps=10
 while [  0 != $counter ]; do
    echo "$counter minutes left...";
-   set_tab_title "$counter minutes left"
+   set_window_title "$counter minutes left"
+   set_tab_title "The focus."
    # Debug
    #sleep 1
    sleep 60
