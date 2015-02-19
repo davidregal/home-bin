@@ -56,5 +56,12 @@ cd "${path}/${upstream}" && \
 svn merge --reintegrate ^/wings/branches/${branch} && \
 svn delete ^/wings/branches/${branch} -m "Remove dev branch david, reintegrated with beta."
 
+echo "Next steps:"
+echo "  1. Review changes in ${upstream}."
+echo "  2. Commit changes in ${upstream}."
+echo "  3. Recreate branch ${branch} from ${upstream}."
+echo '     E.g. svn copy svn+ssh://dregal@sshwingsnw/var/svn/wings/wings/branches/beta svn+ssh://dregal@sshwingsnw/var/svn/wings/wings/branches/david -m "Recreate david from beta@HEAD."'
+
+
 
 
