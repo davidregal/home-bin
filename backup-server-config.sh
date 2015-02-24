@@ -9,7 +9,7 @@ usage_printed=false # To prevent printing usage more than once
 function usage () {
 	if ! $usage_printed; then
 		arg0=$(basename $0)
-		echo "Usage: $arg0 -r destination-root -h server-name"
+		echo "Usage: $arg0 -r destination-root -s server-name"
 		echo "Usage: $arg0 [-h]"
 		usage_printed=true
 	fi
@@ -22,10 +22,12 @@ function help () {
 	echo "Valid options:"
 	echo "  -r destination-root  : Root directory of the destination. Must be a git remote repo. No trailing slashes. E.g. ~/etc"
 	echo '  -s server-name       : Name of the server being backed up. You can use probably $hostname. Dir <server-name> will be created in <destination-root>'
+	echo '  -h                   : Show help.'
 	echo ""
 	echo "Examples:"
-	echo "  $arg0 -r ~/etc -h apollo-web"
-	echo '  $arg0 -r ~/etc -h "$(hostname)"'
+	echo "  $arg0 -r ~/etc -s apollo-web"
+	echo '  $arg0 -r ~/etc -s "$(hostname)"'
+	echo '  $arg0 -h'
 }
 
 function pause(){
@@ -76,11 +78,11 @@ mkdir -p "${dst}/mysql"
 
 # Backup dirs or files with critical custom configurations
 # Dirs
-cp -rpf "${src_root}/apache2/sites-available/*" "${dst}/apache2/sites-available/"
-cp -rpf "${src_root}/php5/apache2/*" "${dst}/php5/apache2/"
-cp -rpf "${src_root}/php5/apache2/conf.d/*" "${dst}/php5/apache2/conf.d/"
-cp -rpf "${src_root}/php5/mods-available/*" "${dst}/php5/mods-available/"
-cp -rpf "${src_root}/php5/cli/*" "${dst}/php5/cli/"
+cp -rpf "${src_root}/apache2/sites-available/" "${dst}/apache2/sites-available/"
+cp -rpf "${src_root}/php5/apache2/" "${dst}/php5/apache2/"
+cp -rpf "${src_root}/php5/apache2/conf.d/" "${dst}/php5/apache2/conf.d/"
+cp -rpf "${src_root}/php5/mods-available/" "${dst}/php5/mods-available/"
+cp -rpf "${src_root}/php5/cli/" "${dst}/php5/cli/"
 # Files
 cp -pf "${src_root}/mysql/my.cnf" "${dst}/mysql/"
 
