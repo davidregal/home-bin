@@ -78,11 +78,11 @@ mkdir -p "${dst}/mysql"
 
 # Backup dirs or files with critical custom configurations
 # Dirs
-cp -rpf "${src_root}/apache2/sites-available/" "${dst}/apache2/sites-available/"
-cp -rpf "${src_root}/php5/apache2/" "${dst}/php5/apache2/"
-cp -rpf "${src_root}/php5/apache2/conf.d/" "${dst}/php5/apache2/conf.d/"
-cp -rpf "${src_root}/php5/mods-available/" "${dst}/php5/mods-available/"
-cp -rpf "${src_root}/php5/cli/" "${dst}/php5/cli/"
+cp -rpf "${src_root}/apache2/sites-available/" "${dst}/apache2/"
+cp -rpf "${src_root}/php5/apache2/" "${dst}/php5/"
+cp -rpf "${src_root}/php5/apache2/conf.d/" "${dst}/php5/apache2/"
+cp -rpf "${src_root}/php5/mods-available/" "${dst}/php5/"
+cp -rpf "${src_root}/php5/cli/" "${dst}/php5/"
 # Files
 cp -pf "${src_root}/mysql/my.cnf" "${dst}/mysql/"
 
