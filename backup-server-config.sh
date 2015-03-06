@@ -1,6 +1,7 @@
 #!/bin/bash
 # Created by: David Regal
 # Modified by: David Regal
+# @todo Fix error "cp: cannot overwrite directory '/home/dregal/etc//breve/php5/apache2/conf.d' with non-directory"
 
 arg0=$(basename $0)
 usage_printed=false # To prevent printing usage more than once

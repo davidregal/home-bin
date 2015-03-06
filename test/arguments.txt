@@ -1,0 +1,1 @@
+--site testp4 --user=root --password= --refresh --same-source --same-target
