@@ -1,7 +1,6 @@
 #!/bin/bash
 # Created by: David Regal
 # Modified by: David Regal
-# @todo Fix error "cp: cannot overwrite directory '/home/dregal/etc//breve/php5/apache2/conf.d' with non-directory"
 
 arg0=$(basename $0)
 usage_printed=false # To prevent printing usage more than once
@@ -80,8 +79,9 @@ mkdir -p "${dst}/mysql"
 # Backup dirs or files with critical custom configurations
 # Dirs
 cp -rpf "${src_root}/apache2/sites-available/" "${dst}/apache2/"
+cp -rpf "${src_root}/apache2/" "${dst}/"
 cp -rpf "${src_root}/php5/apache2/" "${dst}/php5/"
-cp -rpf "${src_root}/php5/apache2/conf.d/" "${dst}/php5/apache2/"
+cp -rpf "${src_root}/php5/conf.d/" "${dst}/php5/"
 cp -rpf "${src_root}/php5/mods-available/" "${dst}/php5/"
 cp -rpf "${src_root}/php5/cli/" "${dst}/php5/"
 # Files
