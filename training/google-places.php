@@ -14,7 +14,7 @@ $coordinates = "38.8673,-104.7607";
 $distance = 1500*5; // Approx 5 mile radius.
 // Does not give next_page_token
 $url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=auto+repair+colorado+springs&location=' . urlencode($coordinates) . '&radius=' . urlencode($distance) . '&key=' . GOOGLE_API;
-$next_page_token = 'CpQCCgEAAM7-WBEAt6rU12JvJe5UDGpptvkKJdABCJvmyHbvHXiF60E-EYBqIdPFFrfrVICEtFfJgb92a6zrG3TVV-q4638rQxXq6ED5vc3ZQHo4i2dOwLOEu1PqFsmSgxijFQXdIM85dJiYsYqr8ltKS69Wl9l1uYhEIpYKBT4WIWIqT3Qiy5aJ7Unhj18zHL0ZnJuNNvEt8uE3BMJNfCimGTMlMZi0vQFjsulsCmrkjz2yk0Q8SHPA4OLWcnUukKzrAImrH8LdHEyNAHG6Flx8sfoIVSNn4wYMdj6PppICaMm6NIUNHO8RixFnQB_kV2Z7b1MITZcbUJSre2HhdIGZ3lib00n4FK2YJl52SrpWxJOT4c_4EhCvR_PI2rQOgH17nXvDViSFGhSklDXZIuOGPNGz5xsnMD3ECGODvQ';
+$next_page_token = '';
 
 //$next_page_token = 'CoQC-QAAAMNYMvxWjTSEbcya_84pLEztTxBIzTVEdARWtCw-8gZhCEk14dALpVLZiRd1lQsIL9scPZ8KYKPQaCVLKXj5qrKATF_a2D2wtBUuIOrVJjxQT8XmW2RG-_klUi6jpHoWRND8g53xUdNYGHRiZpcTQFKcfqgH5BZM43-vH1mH72dqA37tnbgxu1z9_CjfhEEBbl62WFbawfI5g1lPgOpUevOLsUBG_WYjBgquybphqUKWc4NuRclFQOOO7sPell9LSckJIEOi8om2-SuumKKWqib83i0fA_SRun4RP1i30O6LKqbPxltg9_X1jxy9fr7-jLV6w5omfxhorK3Urf8s670SEDZeySvMtlY4qwozIfVpVEcaFDEcTYZjqqU11d9fVuPutvS0MQdO';
 
