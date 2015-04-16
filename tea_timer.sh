@@ -34,7 +34,7 @@ if [ 0 = $counter ]; then
    echo
    echo "Time's up. $limit minutes have elapsed."
    while [ 0 != $beeps_before_bailing ]; do
-      echo '"I love deadlines. I like the whooshing sound they make as they fly by. ~ Douglas Adams."'
+      echo '"There is no future in any job. The future lies in the man who holds the job."'
       echo "Press Ctl + c to exit."
       echo -e '\a' >&2
       sleep $s_between_beeps
