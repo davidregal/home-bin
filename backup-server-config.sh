@@ -75,25 +75,27 @@ mkdir -p "${dst}/php5/apache2/conf.d"
 mkdir -p "${dst}/php5/mods-available"
 mkdir -p "${dst}/php5/cli"
 mkdir -p "${dst}/mysql"
+mkdir -p "${dst}/apt"
 
 # Backup dirs or files with critical custom configurations
 # Dirs
-cp -rpf "${src_root}/apache2/sites-available/" "${dst}/apache2/"
+cp -rpf "${src_root}/apache2/sites-available" "${dst}/apache2/"
 cp -rpf "${src_root}/apache2/" "${dst}/"
-cp -rpf "${src_root}/php5/apache2/" "${dst}/php5/"
-cp -rpf "${src_root}/php5/conf.d/" "${dst}/php5/"
-cp -rpf "${src_root}/php5/mods-available/" "${dst}/php5/"
+cp -rpf "${src_root}/php5/apache2" "${dst}/php5/"
+cp -rpf "${src_root}/php5/conf.d" "${dst}/php5/"
+cp -rpf "${src_root}/php5/mods-available" "${dst}/php5/"
 cp -rpf "${src_root}/php5/cli/" "${dst}/php5/"
 # Files
 cp -pf "${src_root}/mysql/my.cnf" "${dst}/mysql/"
+cp -rpf "${src_root}/apt/sources.list" "${dst}/apt/"
 
 # Add and commit locally
 cd "${dst_root}"
 echo "git status:"
 git status
 pause "Check git status. If want to add, commit and push, then press return. Otherwise press [Ctrl]+c"
-git add -A . && git commit -a -m "Backup server config for ${servername}."
+git pl && git add -A . && git commit -a -m "Backup server config for ${servername}."
 
 # Push to github
-git push origin master
+git pl && git push origin master
 

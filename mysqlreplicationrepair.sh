@@ -11,6 +11,7 @@ echo ;
 done=0;
 sleep_seconds=5;
 sleep_seconds_long=300;
+sleep_seconds_max=1800; # Limit to sleep time. Sleep times will increase up to this point. Recommended: 1800 = 30 minutes.
 while [ $done -eq 0 ];
 do
 	# get status
@@ -47,7 +48,11 @@ do
 		then
 			done=0;
 			sleep ${sleep_seconds_long};
-			sleep_seconds_long=$((sleep_seconds_long*2))
+			sleep_seconds_long=$((sleep_seconds_long*2));
+			if [ "${sleep_seconds_long}" -gt "${sleep_seconds_max}" ];
+			then
+				sleep_seconds_long=$sleep_seconds_max;
+			fi
 		fi
 	fi
 done
